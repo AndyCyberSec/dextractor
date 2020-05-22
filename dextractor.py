@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3
-# AndyCyberSec 2020 - https://github.com/AndyCyberSec
+#AndyCyberSec 2020 - 
+
 
 
 from zipfile import ZipFile
@@ -34,7 +35,7 @@ with ZipFile(apk, 'r') as zip:
                 print("[-] Error during extraction of " + element.filename)
 
 print("[+] Now decompiling dex files...")
-
-stream = os.popen("d2j-dex2jar -o " + dest_path  + ",".join(dexs))
+print(dest_path)
+stream = os.popen("/usr/local/bin/d2j-dex2jar " + ",".join(dexs))
 stream.read()
 print("[+] Decompiling complete!")
