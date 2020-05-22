@@ -33,7 +33,7 @@ with ZipFile(apk, 'r') as zip:
                 print("[-] Error during extraction of " + element.filename)
 
 print("[+] Now decompiling dex files...")
-print(dest_path)
+
 stream = os.popen("/usr/local/bin/d2j-dex2jar " + ",".join(dexs))
 stream.read()
 print("[+] Decompiling complete!"
