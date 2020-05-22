@@ -1,7 +1,5 @@
 #!/usr/local/bin/python3
-#AndyCyberSec 2020 - 
-
-
+#AndyCyberSec 2020 - https://github.com/AndyCyberSec
 
 from zipfile import ZipFile
 import sys
@@ -38,4 +36,4 @@ print("[+] Now decompiling dex files...")
 print(dest_path)
 stream = os.popen("/usr/local/bin/d2j-dex2jar " + ",".join(dexs))
 stream.read()
-print("[+] Decompiling complete!")
+print("[+] Decompiling complete!"
