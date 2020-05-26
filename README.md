@@ -32,6 +32,8 @@ ln -s /path/dextractor/main.py /usr/local/bin/dextractor
 ```
 
 ```
+$ dextractor
+
 64 65 78 74 72 61 63 74 6F 72
 AndyCyberSec 2020 - www.andreabruschi.net
 Type ? or help to list commands
