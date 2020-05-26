@@ -121,8 +121,6 @@ class Dextractor(Cmd):
  
         print("Type ? or help to list commands.")
  
-    do_EOF = do_exit
-    help_EOF = help_exit
 
 
 def parse_arg(arg):
