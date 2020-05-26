@@ -15,8 +15,12 @@ class Dextractor(Cmd):
     intro += "\nType ? or help to list commands"
     client = AdbClient(host="127.0.0.1", port=5037)
     device = None
+    cwd = None
 
     # DOs
+    def do_cwd(self, arg):
+        self.cwd = arg
+
     # arg is the APK
     def do_dextract(self, arg):
         dextractor.dextract(arg)
@@ -36,32 +40,20 @@ class Dextractor(Cmd):
         try:
             package, dest = parse_arg(arg)
         except ValueError:
-            package = None
+            package = parse_arg(arg)
+            dest = None
 
         if package:
-            if dest:
-                if self.device:
-                    try:
-                        # Directory pull to be implemented in ppadb, using standalone binary
-                        # output = self.device.pull("/data/data/%s %s" % (package, dest))
-                        try:
-                            cmd = ['adb', 'pull', "/data/data/%s" % package, dest]
-                            adb = subprocess.Popen(cmd)
-                            adb.wait()
-                        except:
-                            print("[-] Error while dumping app data.")
-
-                        filelist = dumper.fast_scandir(dest)
-                        dumper.dump(filelist,'xml',dest)
-                        dumper.dump(filelist,'sqlite',dest)
-
-                    except FileNotFoundError as e:
-                        print(e)
-
+            if self.device:
+                if dest:
+                    pull(package, dest)
                 else:
-                    print("[-] Connect to a device first.") 
+                    if self.cwd:
+                        pull(package, self.cwd)
+                    else:
+                        print("[-] Type the path where to save the data or set cwd.")
             else:
-                print("[-] Type the path where to save the data.")
+                print("[-] Connect to a device first.") 
         else:
             print("[-] Package name is needed.")     
         
@@ -94,6 +86,10 @@ class Dextractor(Cmd):
 
 
     # HELPs
+    def help_cwd(self):
+        print("Set the current working directory")
+        print("cwd /path/to/dir\n")
+
     def help_dextract(self):
         print("Type: dextract file.apk")
 
@@ -124,13 +120,28 @@ class Dextractor(Cmd):
 
 
 def parse_arg(arg):
-    return tuple(arg.split())
+    try:
+        return tuple(arg.split())
+    except ValueError:
+        return arg
 
-def fast_scandir(dirname):
-    subfolders= [f.path for f in os.scandir(dirname) if f.is_dir()]
-    for dirname in list(subfolders):
-        subfolders.extend(fast_scandir(dirname))
-    return subfolders
+def pull(package, dest):
+    try:
+        # Directory pull to be implemented in ppadb, using standalone binary
+        # output = self.device.pull("/data/data/%s %s" % (package, dest))
+        try:
+            cmd = ['adb', 'pull', "/data/data/%s" % package, dest]
+            adb = subprocess.Popen(cmd)
+            adb.wait()
+        except:
+            print("[-] Error while dumping app data.")
+
+        filelist = dumper.fast_scandir(dest)
+        dumper.dump(filelist,'xml',dest)
+        dumper.dump(filelist,'sqlite',dest)
+
+    except FileNotFoundError as e:
+        print(e)
     
  
 if __name__ == '__main__':
