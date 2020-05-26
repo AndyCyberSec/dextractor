@@ -57,7 +57,6 @@ class Dextractor(Cmd):
         else:
             print("[-] Package name is needed.")     
         
-
     def do_connect(self, device=None):
         if device:
             self.device = self.client.device(device)
@@ -139,6 +138,7 @@ def pull(package, dest):
         filelist = dumper.fast_scandir(dest)
         dumper.dump(filelist,'xml',dest)
         dumper.dump(filelist,'sqlite',dest)
+        dumper.dump(filelist,'json',dest)
 
     except FileNotFoundError as e:
         print(e)

@@ -2,6 +2,7 @@ import os
 import filetype
 import sqlite3
 from prettytable import PrettyTable
+import json
 
 def dump(files, ftype, dest):
 
@@ -12,11 +13,11 @@ def dump(files, ftype, dest):
         kind = filetype.guess(file)
         if 'xml' in ftype:
             if '.xml' in file:
-                fxml = open(file, 'r')
-                xml = fxml.read()
-                f.write("[+] Dump of %s \n\n" %file)
-                f.write(xml)
-                f.write("\n\n\n")
+                with open(file, 'r') as fxml:
+                    xml = fxml.read()
+                    f.write("[+] Dump of %s \n\n" %file)
+                    f.write(xml)
+                    f.write("\n\n\n")
         elif 'sqlite' in ftype:
             try:
                 if kind.mime == 'application/x-sqlite3':
@@ -29,10 +30,18 @@ def dump(files, ftype, dest):
 
             except AttributeError:
                 pass
-    try:          
+        elif '.json' in file:
+            with open(file, 'r') as fjson:
+                f.write("[+] Dump of %s \n" %file)
+                j = json.load(fjson)
+                json.dump(j, f, indent=4, sort_keys=True)
+                f.write("\n\n\n")
+
+    """try:          
         fxml.close()
+        fjson.close()
     except UnboundLocalError:
-        pass
+        pass"""
     
     print("[+] Content of the files dumped correctly in %s" % fname)
     f.close()
