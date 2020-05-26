@@ -25,10 +25,10 @@ connect  devices  dextract  dump  exit  help  packages
 ```
 
 ## Usage
-You can create symlink into your /usr/local/bin
+You can create a symlink into your /usr/local/bin
 
 ```
-ln -s /path/dextractor/main.py /usr/local/bin/dextractor
+ln -s /path/dextractor/run.sh /usr/local/bin/dextractor
 ```
 
 ```
