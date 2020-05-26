@@ -1,6 +1,9 @@
 # dextractor
 Android pentesting with ease.
 
+## Description
+The tools allows to connect through adb to an Android device. Once connected, use the **packages** command to list the installed apps, use **dump** command to save locally the app data files (/data/data/app_package) and dump all xml and sqlite3 content into txt files for further inspection.
+
 ### Prerequisites
 * dex2jar
 * adb
@@ -20,9 +23,6 @@ Documented commands (type help <topic>):
 ========================================
 connect  devices  dextract  dump  exit  help  packages
 ```
-
-## Description
-The tools allows to connect through adb to an Android device. Once connected, use the **packages** command to list the installed apps, use **dump** command to save locally the app data files (/data/data/app_package) and dump all xml and sqlite3 content into txt files for further inspection.
 
 ## Authors
 
