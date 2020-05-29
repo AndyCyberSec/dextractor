@@ -3,6 +3,8 @@ Android pentesting with ease.
 
 ## Description
 The tools allows to connect through adb to an Android device. Once connected, use the **packages** command to list the installed apps, use **dump** command to save locally the app data files (/data/data/app_package) and dump all xml and sqlite3 content into txt files for further inspection.
+It allows to connect quickly through jdb and test if anti-debug is in place.
+It also checks for dangerous permissions in AndroidManifest.xml
 
 ### Prerequisites
 * dex2jar
