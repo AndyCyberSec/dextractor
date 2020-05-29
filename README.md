@@ -21,7 +21,7 @@ The tool will use pure-python-adb but actually it doesn't support pull of direct
 ```
 Documented commands (type help <topic>):
 ========================================
-connect  devices  dextract  dump  exit  help  packages
+connect  cwd  debug  devices  dextract  dump  exit  help  packages  perm
 ```
 
 ## Usage
@@ -41,7 +41,7 @@ dextractor % help
 
 Documented commands (type help <topic>):
 ========================================
-connect  devices  dextract  dump  exit  help  packages
+connect  cwd  debug  devices  dextract  dump  exit  help  packages  perm
 
 dextractor % 
 ```
