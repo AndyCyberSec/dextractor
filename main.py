@@ -6,6 +6,8 @@ from ppadb.client import Client as AdbClient
 import subprocess
 import os
 import dumper
+import debugger
+import permissions
 
  
 class Dextractor(Cmd):
@@ -78,6 +80,22 @@ class Dextractor(Cmd):
         else:
             print("[-] Connect to a device first.")
 
+    def do_debug(self, arg=None):
+        if self.device:
+            output = self.device.shell("ps |grep %s" % arg)
+            try:
+                pid = output.split(" ")[4]
+                print(output)
+                debugger.debug(pid)
+            except IndexError:
+                print("[-] Failed to run debugging. Make sure the app is running and the package name is correct.")
+            
+        else:
+            print("[-] Connect to a device first.")
+
+    def do_perm(self, arg=None):
+        permissions.check_permissions(arg)
+
     def do_exit(self, arg):
         print("See you soon!")
         return True
@@ -106,6 +124,14 @@ class Dextractor(Cmd):
     def help_packages(self):
         print("List all the installed apps.")
         print("Usage: packages <name filter>.")
+
+    def help_debug(self):
+        print("Test debug with jdwp")
+        print("Usage: debug com.package.name")
+
+    def help_perm(self):
+        print("Prints AndroidManifest.xml dangerous permissions")
+        print("Usage: perm AndroidManifest.xml")
     
     def help_exit(self):
         print('exit the application. Shorthand: x q Ctrl-D.')
