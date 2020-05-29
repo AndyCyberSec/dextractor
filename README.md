@@ -6,6 +6,27 @@ The tools allows to connect through adb to an Android device. Once connected, us
 It allows to connect quickly through jdb and test if anti-debug is in place.
 It also checks for dangerous permissions in AndroidManifest.xml
 
+```
+andrea@MBP-di-Andrea dextractor % dextractor
+
+64 65 78 74 72 61 63 74 6F 72
+AndyCyberSec 2020 - www.andreabruschi.net
+Type ? or help to list commands
+dextractor % perm ./AndroidManifest.xml
+
+[+] Requesting https://developer.android.com/reference/android/Manifest.permission...
+
+[+] Found 4 dangerous permissions in AndroidManifest.xml
+
+Dangerous:      android.permission.RECORD_AUDIO
+
+Dangerous:      android.permission.CAMERA
+
+Dangerous:      android.permission.WRITE_EXTERNAL_STORAGE
+
+Dangerous:      android.permission.ACCESS_FINE_LOCATION
+```
+
 ### Prerequisites
 * dex2jar
 * adb
